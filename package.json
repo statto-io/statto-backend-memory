@@ -1,0 +1,39 @@
+{
+  "name": "statto-backend-memory",
+  "description": "A memory based statto backend for testing purposes.",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "dependencies": {
+    "date-slice": "^0.1.0",
+    "statto-backend": "*"
+  },
+  "devDependencies": {
+    "statto": "^0.3.0",
+    "statto-merge": "^0.1.0",
+    "statto-process": "^0.1.0",
+    "tape": "^3.5.0"
+  },
+  "homepage": "https://github.com/tynio/statto-backend-memory",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tynio/statto-backend-memory"
+  },
+  "bugs": {
+    "url": "https://github.com/tynio/statto-backend-memory/issues"
+  },
+  "author": {
+    "name": "Andrew Chilton",
+    "email": "andychilton@gmail.com",
+    "url": "http://chilts.org/"
+  },
+  "license": "MIT",
+  "keywords": [
+    "statto",
+    "statsd",
+    "stats",
+    "statto-backend"
+  ]
+}
