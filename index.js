@@ -66,6 +66,10 @@ StattoBackendMemory.prototype.getRaws = function getStats(date, callback) {
     }
     var ts = date.toISOString()
 
+    if ( !self.raw[ts] ) {
+      return callback(null, [])
+    }
+
     var raws = []
     Object.keys(self.raw[ts]).forEach(function(hash) {
       raws.push(self.raw[ts][hash])
