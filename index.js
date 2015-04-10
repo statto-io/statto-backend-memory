@@ -11,6 +11,7 @@ var util = require('util')
 var crypto = require('crypto')
 
 // npm
+var through = require('through')
 var stattoBackend = require('statto-backend')
 
 // --------------------------------------------------------------------------------------------------------------------
@@ -109,6 +110,44 @@ StattoBackendMemory.prototype.getStats = function getStats(date, callback) {
 
     callback(null, self.stats[ts])
   })
+}
+
+StattoBackendMemory.prototype.createStatsReadStream = function createStatsReadStream(from, to, callback) {
+  // * from - greater than or equal to (always included)
+  // * to - less than (therefore never included)
+  var self = this
+
+  from = self._datify(from)
+  to   = self._datify(to)
+  // if ( !from ) {
+  //   return process.nextTick(function() {
+  //     callback(new Error("Unknown 'from' type : " + typeof from))
+  //   })
+  // }
+  // if ( !to ) {
+  //   return process.nextTick(function() {
+  //     callback(new Error("Unknown 'to' type : " + typeof to))
+  //   })
+  // }
+  var ts1 = from.toISOString()
+  var ts2 = to.toISOString()
+
+  // let's loop
+  var stream = through()
+
+  var timestamps = Object.keys(self.stats).sort()
+  process.nextTick(function() {
+    for(var i = 0; i < timestamps.length; i++) {
+      if ( timestamps[i] >= ts1 && timestamps[i] < ts2 ) {
+        stream.queue(self.stats[timestamps[i]])
+      }
+    }
+    // end the stream
+    stream.emit('end')
+    stream.emit('close')
+  })
+
+  return stream
 }
 
 // ToDo:

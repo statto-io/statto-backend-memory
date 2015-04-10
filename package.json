@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "date-slice": "^0.1.0",
-    "statto-backend": "*"
+    "statto-backend": "*",
+    "through": "^2.3.7"
   },
   "devDependencies": {
     "statto": "^0.3.0",
